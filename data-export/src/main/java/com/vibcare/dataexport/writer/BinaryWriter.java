@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.vibcare.dataexport.util.ByteConverter;
+import com.vibcare.dataexport.util.Decoder;
 
 public class BinaryWriter
 {
@@ -46,5 +47,7 @@ public class BinaryWriter
     outputBytesArrayList.set(start + 3, bytes[3]);
 
   }
+
+
 
 }

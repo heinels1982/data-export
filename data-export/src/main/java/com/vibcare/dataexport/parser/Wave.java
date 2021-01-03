@@ -15,6 +15,7 @@ public class Wave
   public String TIMESTAMP;
   public String WORKING_CONDITION;
   public int SAMPLING_COUNTS;
+  public String RESERVED_1;
 
   public long timestamp;
   public int SAMPLING_RATE;
@@ -42,6 +43,7 @@ public class Wave
   public List<Double> DATA;
   public List<Double> channel2Data;
   public List<Double> channel3Data;
+  public int CONDITION_DESCRIPTION_SIZE;
 
   @Override
   public String toString()
@@ -74,9 +76,10 @@ public class Wave
            ", unitName3='" + unitName3 + '\'' +
            ", unitName4='" + unitName4 + '\'' +
            ", unitName5='" + unitName5 + '\'' +
-           ", DATA=" + DATA +
+          // ", DATA=" + DATA +
            ", channel2Data=" + channel2Data +
            ", channel3Data=" + channel3Data +
+           ", CONDITION_DESCRIPTION_SIZE=" + CONDITION_DESCRIPTION_SIZE +
            '}';
   }
 }

@@ -27,6 +27,14 @@ public class Decoder
     return value;
   }
 
+  public static long byteArrayTo64Int(byte[] encodedValue) {
+    long res = 0;
+    for (int i = 0; i < encodedValue.length; i++) {
+      res += (long)(encodedValue[i] & 0xFF) << ((encodedValue.length - 1 - i) * 8);
+    }
+    return res;
+  }
+
   public static int byteArrayTo16Int(byte[] encodedValue)
   {
     int r = encodedValue[1] & 0xFF;
@@ -36,7 +44,7 @@ public class Decoder
 
   public static byte[] getBytes(byte[] allBytes, int start, int i)
   {
-    return Arrays.copyOfRange(allBytes, start, i + 1);
+    return Arrays.copyOfRange(allBytes, start, i );
   }
 
   public static String convertToUTF8(byte[] bytes)
@@ -45,4 +53,12 @@ public class Decoder
   }
 
 
+  public static float toFloat(byte[] bytes)
+  {
+    int asInt = (bytes[0] & 0xFF)
+                | ((bytes[1] & 0xFF) << 8)
+                | ((bytes[2] & 0xFF) << 16)
+                | ((bytes[3] & 0xFF) << 24);
+    return Float.intBitsToFloat(asInt);
+  }
 }

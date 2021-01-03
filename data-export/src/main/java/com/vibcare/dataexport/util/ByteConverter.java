@@ -20,4 +20,9 @@ public class ByteConverter
 
     return ByteBuffer.allocate(4).putInt(i).array();
   }
+
+  public static String convertToString(byte[] allBytes, int start, int end)
+  {
+    return new String(Decoder.getBytes(allBytes, start, end));
+  }
 }
