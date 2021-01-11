@@ -10,6 +10,8 @@ import com.vibcare.dataexport.db.util.DataConverter;
 import com.vibcare.dataexport.util.ByteConverter;
 import com.vibcare.dataexport.util.Decoder;
 
+import static com.vibcare.dataexport.util.Decoder.byteArrayTo64Int;
+
 
 public class WaveExtractor
 {
@@ -46,6 +48,7 @@ public class WaveExtractor
       w.VALUE_TYPE = Decoder.convertTo2UInt(Decoder.getBytes(allBytes, 288, 290));
       w.WAVE_LEN = convertTo32Int(allBytes, 290, 294);
       w.DATA = DataConverter.convertToListOfFloat(Decoder.getBytes(allBytes, 513, 513 + w.WAVE_LEN));
+      w.SAVE_TIME_COM = byteArrayTo64Int(Decoder.getBytes(allBytes, 276, 276 + 8));
     }
     catch (RuntimeException e)
     {
@@ -57,16 +60,6 @@ public class WaveExtractor
     }
 
     return w;
-  }
-
-  private static void debug(byte[] allBytes) throws IOException
-  {
-    File fiche = new File("allBytes");
-    FileWriter f = new FileWriter(fiche);
-    for (byte d : allBytes)
-    {
-      f.write(d + "\n");
-    }
   }
 
   private static int convertTo32Int(byte[] allBytes, int start, int end)

@@ -6,21 +6,21 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.vibcare.dataexport.util.ByteConverter;
-import com.vibcare.dataexport.util.Decoder;
 
 public class BinaryWriter
 {
   List<Byte> outputBytesArrayList;
 
-  BinaryWriter(int len) {
+  BinaryWriter(int len)
+  {
     outputBytesArrayList = new ArrayList(512);
   }
 
-  void storeINT16(int length, int value) {
+  void storeINT16(int length, int value)
+  {
 
   }
 
@@ -47,7 +47,6 @@ public class BinaryWriter
     outputBytesArrayList.set(start + 3, bytes[3]);
 
   }
-
 
 
 }

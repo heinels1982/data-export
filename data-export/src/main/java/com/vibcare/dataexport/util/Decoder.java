@@ -28,11 +28,19 @@ public class Decoder
   }
 
   public static long byteArrayTo64Int(byte[] encodedValue) {
-    long res = 0;
-    for (int i = 0; i < encodedValue.length; i++) {
-      res += (long)(encodedValue[i] & 0xFF) << ((encodedValue.length - 1 - i) * 8);
-    }
-    return res;
+    ByteBuffer bb = ByteBuffer.allocate(8);
+    bb.order(ByteOrder.LITTLE_ENDIAN);
+    bb.put(encodedValue[0]);
+    bb.put(encodedValue[1]);
+    bb.put(encodedValue[2]);
+    bb.put(encodedValue[3]);
+    bb.put(encodedValue[4]);
+    bb.put(encodedValue[5]);
+    bb.put(encodedValue[6]);
+    bb.put(encodedValue[7]);
+    long longVal = bb.getLong(0);
+
+    return longVal;
   }
 
   public static int byteArrayTo16Int(byte[] encodedValue)

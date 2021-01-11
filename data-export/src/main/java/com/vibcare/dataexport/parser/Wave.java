@@ -24,6 +24,7 @@ public class Wave
   public int COMTYPE;
   public int VALUE_TYPE;
   public int WAVE_LEN;
+  public long SAVE_TIME_COM;
 
 
   public double VIB_PP;
@@ -59,12 +60,14 @@ public class Wave
            ", TIMESTAMP='" + TIMESTAMP + '\'' +
            ", WORKING_CONDITION='" + WORKING_CONDITION + '\'' +
            ", SAMPLING_COUNTS=" + SAMPLING_COUNTS +
+           ", RESERVED_1='" + RESERVED_1 + '\'' +
            ", timestamp=" + timestamp +
            ", SAMPLING_RATE=" + SAMPLING_RATE +
            ", MIN_GEN_SPEED=" + MIN_GEN_SPEED +
            ", COMTYPE=" + COMTYPE +
            ", VALUE_TYPE=" + VALUE_TYPE +
            ", WAVE_LEN=" + WAVE_LEN +
+           ", SAVE_TIME_COM=" + SAVE_TIME_COM +
            ", VIB_PP=" + VIB_PP +
            ", offset3=" + offset3 +
            ", sizeOfDataChunkInBytes=" + sizeOfDataChunkInBytes +
@@ -76,7 +79,7 @@ public class Wave
            ", unitName3='" + unitName3 + '\'' +
            ", unitName4='" + unitName4 + '\'' +
            ", unitName5='" + unitName5 + '\'' +
-          // ", DATA=" + DATA +
+
            ", channel2Data=" + channel2Data +
            ", channel3Data=" + channel3Data +
            ", CONDITION_DESCRIPTION_SIZE=" + CONDITION_DESCRIPTION_SIZE +

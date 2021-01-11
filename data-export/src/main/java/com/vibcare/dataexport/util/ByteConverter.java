@@ -1,6 +1,5 @@
 package com.vibcare.dataexport.util;
 
-import java.math.BigInteger;
 import java.nio.ByteBuffer;
 
 public class ByteConverter
