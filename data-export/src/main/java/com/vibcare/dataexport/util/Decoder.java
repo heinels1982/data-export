@@ -1,6 +1,5 @@
 package com.vibcare.dataexport.util;
 
-import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
@@ -27,7 +26,8 @@ public class Decoder
     return value;
   }
 
-  public static long byteArrayTo64Int(byte[] encodedValue) {
+  public static long byteArrayTo64Int(byte[] encodedValue)
+  {
     ByteBuffer bb = ByteBuffer.allocate(8);
     bb.order(ByteOrder.LITTLE_ENDIAN);
     bb.put(encodedValue[0]);
@@ -52,7 +52,7 @@ public class Decoder
 
   public static byte[] getBytes(byte[] allBytes, int start, int i)
   {
-    return Arrays.copyOfRange(allBytes, start, i );
+    return Arrays.copyOfRange(allBytes, start, i);
   }
 
   public static String convertToUTF8(byte[] bytes)

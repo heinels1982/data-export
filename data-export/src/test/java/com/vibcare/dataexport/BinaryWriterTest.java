@@ -26,7 +26,6 @@ class BinaryWriterTest
     byte[] allBytes = fis.readAllBytes();
     for (Map.Entry<DataEntry.DataEntryType, DataEntry> entry : df.getDataFields().entrySet())
     {
-      System.out.println(entry);
       DataEntry entryElement = entry.getValue();
       if (entryElement.getFormat() == DataEntry.Format.INT32)
       {
@@ -48,7 +47,8 @@ class BinaryWriterTest
         assertTrue(
           ByteConverter.convertToString(allBytes, entryElement.getStartPosition(), entryElement.getEndPosition())
             .contains(entryElement.getValue().toString()));
-      } else if (entryElement.getFormat() == DataEntry.Format.INT64)
+      }
+      else if (entryElement.getFormat() == DataEntry.Format.INT64)
       {
         assertEquals(entryElement.getValue(),
           Decoder.byteArrayTo64Int(Decoder.getBytes(allBytes, entryElement.getStartPosition(), entryElement.getEndPosition())));

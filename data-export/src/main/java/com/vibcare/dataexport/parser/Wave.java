@@ -26,7 +26,6 @@ public class Wave
   public int WAVE_LEN;
   public long SAVE_TIME_COM;
 
-
   public double VIB_PP;
   public double offset3;
   public int sizeOfDataChunkInBytes;
@@ -45,6 +44,10 @@ public class Wave
   public List<Double> channel2Data;
   public List<Double> channel3Data;
   public int CONDITION_DESCRIPTION_SIZE;
+  public int ENDIANNESS;
+  public float VIB_RMS;
+  public float VIB_P;
+  public String RESERVED_5;
 
   @Override
   public String toString()
@@ -79,10 +82,19 @@ public class Wave
            ", unitName3='" + unitName3 + '\'' +
            ", unitName4='" + unitName4 + '\'' +
            ", unitName5='" + unitName5 + '\'' +
-
+           ", DATA=" + DATA +
            ", channel2Data=" + channel2Data +
            ", channel3Data=" + channel3Data +
            ", CONDITION_DESCRIPTION_SIZE=" + CONDITION_DESCRIPTION_SIZE +
+           ", ENDIANNESS=" + ENDIANNESS +
+           ", VIB_RMS=" + VIB_RMS +
+           ", VIB_P=" + VIB_P +
+           ", RESERVED_5='" + RESERVED_5 + '\'' +
+           ", WAVE_DATA='" + WAVE_DATA + '\'' +
            '}';
   }
+
+  public String WAVE_DATA;
+
+
 }

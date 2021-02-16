@@ -58,13 +58,13 @@ public class BinaryWriter
     filOs.close();
   }
 
-  public static void main(String args[]) throws IOException
-  {
-    FileOutputStream filOs = new FileOutputStream("fileName");
-    ByteBuffer b = ByteBuffer.allocate(2);
-    b.order(ByteOrder.LITTLE_ENDIAN);
-    b.putShort(Short.valueOf("1"));
-    filOs.write(b.array());
-    filOs.close();
-  }
+//  public static void main(String args[]) throws IOException
+//  {
+//    FileOutputStream filOs = new FileOutputStream("fileName");
+//    ByteBuffer b = ByteBuffer.allocate(2);
+//    b.order(ByteOrder.LITTLE_ENDIAN);
+//    b.putShort(Short.valueOf("1"));
+//    filOs.write(b.array());
+//    filOs.close();
+//  }
 }

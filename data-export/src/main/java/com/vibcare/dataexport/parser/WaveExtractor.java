@@ -5,7 +5,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import com.vibcare.dataexport.db.util.ByteHelper;
 import com.vibcare.dataexport.db.util.DataConverter;
 import com.vibcare.dataexport.util.ByteConverter;
 import com.vibcare.dataexport.util.Decoder;
@@ -19,7 +23,7 @@ public class WaveExtractor
   public static Wave parse(File wavFile) throws IOException
   {
     Wave w = new Wave();
-    FileInputStream fis = null;
+    FileInputStream fis;
 
     // create file input stream
     fis = new FileInputStream(wavFile);
@@ -43,12 +47,27 @@ public class WaveExtractor
 
       w.MIN_GEN_SPEED = Decoder.toFloat(Decoder.getBytes(allBytes, 160, 160 + 4));
       w.SAMPLING_RATE = Decoder.byteArrayTo32Int(Decoder.getBytes(allBytes, 272, 272 + 4));
-      w.VIB_PP = Decoder.toFloat(Decoder.getBytes(allBytes, 302, 302 + 4));
-      w.COMTYPE = Decoder.convertTo2UInt(Decoder.getBytes(allBytes, 284, 286));
-      w.VALUE_TYPE = Decoder.convertTo2UInt(Decoder.getBytes(allBytes, 288, 290));
-      w.WAVE_LEN = convertTo32Int(allBytes, 290, 294);
+
       w.DATA = DataConverter.convertToListOfFloat(Decoder.getBytes(allBytes, 513, 513 + w.WAVE_LEN));
       w.SAVE_TIME_COM = byteArrayTo64Int(Decoder.getBytes(allBytes, 276, 276 + 8));
+      w.COMTYPE = Decoder.convertTo2UInt(Decoder.getBytes(allBytes, 284, 286));
+      w.ENDIANNESS = Decoder.convertTo2UInt(Decoder.getBytes(allBytes, 286, 288));
+      w.VALUE_TYPE = Decoder.convertTo2UInt(Decoder.getBytes(allBytes, 288, 290));
+      w.WAVE_LEN = convertTo32Int(allBytes, 290, 294);
+      w.VIB_RMS = Decoder.toFloat(Decoder.getBytes(allBytes, 294, 294 + 4));
+      w.VIB_P = Decoder.toFloat(Decoder.getBytes(allBytes, 298, 298 + 4));
+      w.VIB_PP = Decoder.toFloat(Decoder.getBytes(allBytes, 302, 302 + 4));
+      w.RESERVED_5 = ByteConverter.convertToString(allBytes, 306, 306 + 206);
+
+      byte[] waveBytes = Decoder.getBytes(allBytes, 512, allBytes.length);
+      List<Short> shortList = convertToListOfShort(waveBytes);
+
+//      FileWriter fw = new FileWriter("dataRGY");
+//      for(Short s : shortList) {
+//        fw.write(s * w.SCALE_COEFFICIENT + "\n");
+//      }
+//      fw.close();
+      //w.WAVE_DATA = ByteConverter.convertToString(allBytes, 512, allBytes.length);
     }
     catch (RuntimeException e)
     {
@@ -58,8 +77,21 @@ public class WaveExtractor
     {
       e.printStackTrace();
     }
-
     return w;
+  }
+
+  private static final int TWO_BYTES_STEP = 2;
+
+  private static List<Short> convertToListOfShort(byte[] allBytes)
+  {
+    List<Short> result = new ArrayList<>();
+    for (int i = 0; i < allBytes.length; i = i + TWO_BYTES_STEP)
+    {
+      byte[] subArray = Arrays.copyOfRange(allBytes, i, i + TWO_BYTES_STEP);
+      short f = ByteHelper.byte2short(subArray);
+      result.add(f);
+    }
+    return result;
   }
 
   private static int convertTo32Int(byte[] allBytes, int start, int end)
