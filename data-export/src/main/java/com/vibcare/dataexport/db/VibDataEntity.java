@@ -30,20 +30,20 @@ public class VibDataEntity
     return pointName;
   }
 
-  public String getGmtEvent()
-  {
-    return gmtEvent;
-  }
+//  public String getGmtEvent()
+//  {
+//    return gmtEvent;
+//  }
 
   public Double getMaxSecsOrRevs()
   {
     return maxSecsOrRevs;
   }
 
-  public byte[] getWeaveFormData()
-  {
-    return weaveFormData;
-  }
+//  public byte[] getWeaveFormData()
+//  {
+//    return weaveFormData;
+//  }
 
   public Double getAssocRpmInHz()
   {

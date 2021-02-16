@@ -3,15 +3,10 @@ package com.vibcare.dataexport.parser;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import com.vibcare.dataexport.db.util.ByteHelper;
 import com.vibcare.dataexport.db.util.DataConverter;
-import com.vibcare.dataexport.util.ByteConverter;
 import com.vibcare.dataexport.util.Decoder;
 
 import static com.vibcare.dataexport.util.Decoder.byteArrayTo64Int;
@@ -35,10 +30,10 @@ public class WaveExtractor
       w.DATA_ANALYSIS = convertTo16Int(allBytes, 6, 8);
       w.SCALE_COEFFICIENT = Decoder.toFloat(Decoder.getBytes(allBytes, 8, 8 + 4));
       w.SCALE_OFFSET = Decoder.toFloat(Decoder.getBytes(allBytes, 12, 12 + 4));
-      w.WORKING_CONDITION = ByteConverter.convertToString(allBytes, 80, 80 + 16);
+      w.WORKING_CONDITION = Decoder.convertToString(allBytes, 80, 80 + 16);
       w.CONDITION_DESCRIPTION_SIZE = Decoder.convertTo2UInt(Decoder.getBytes(allBytes, 64, 66));
-      w.RESERVED_1 = ByteConverter.convertToString(allBytes, 16, 16 + 48);
-      w.TIMESTAMP = ByteConverter.convertToString(allBytes, 208, 208 + 32);
+      w.RESERVED_1 = Decoder.convertToString(allBytes, 16, 16 + 48);
+      w.TIMESTAMP = Decoder.convertToString(allBytes, 208, 208 + 32);
       w.SAMPLING_COUNTS = convertTo32Int(allBytes, 272, 272 + 4);
 
       //w.timestamp = Long.valueOf(convertToInt(allBytes, 300, 307)) * 1000;
@@ -57,10 +52,10 @@ public class WaveExtractor
       w.VIB_RMS = Decoder.toFloat(Decoder.getBytes(allBytes, 294, 294 + 4));
       w.VIB_P = Decoder.toFloat(Decoder.getBytes(allBytes, 298, 298 + 4));
       w.VIB_PP = Decoder.toFloat(Decoder.getBytes(allBytes, 302, 302 + 4));
-      w.RESERVED_5 = ByteConverter.convertToString(allBytes, 306, 306 + 206);
+      w.RESERVED_5 = Decoder.convertToString(allBytes, 306, 306 + 206);
 
       byte[] waveBytes = Decoder.getBytes(allBytes, 512, allBytes.length);
-      List<Short> shortList = convertToListOfShort(waveBytes);
+      List<Short> shortList = Decoder.convertToListOfShort(waveBytes);
 
 //      FileWriter fw = new FileWriter("dataRGY");
 //      for(Short s : shortList) {
@@ -80,19 +75,7 @@ public class WaveExtractor
     return w;
   }
 
-  private static final int TWO_BYTES_STEP = 2;
 
-  private static List<Short> convertToListOfShort(byte[] allBytes)
-  {
-    List<Short> result = new ArrayList<>();
-    for (int i = 0; i < allBytes.length; i = i + TWO_BYTES_STEP)
-    {
-      byte[] subArray = Arrays.copyOfRange(allBytes, i, i + TWO_BYTES_STEP);
-      short f = ByteHelper.byte2short(subArray);
-      result.add(f);
-    }
-    return result;
-  }
 
   private static int convertTo32Int(byte[] allBytes, int start, int end)
   {

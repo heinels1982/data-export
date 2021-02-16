@@ -1,18 +1,20 @@
 package com.vibcare.dataexport;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DataFile
 {
   private final String filename;
   private final Map<DataEntry.DataEntryType, DataEntry> dataFields = new LinkedHashMap<>();
-
+  private static int UNLIMITED = 0;
   {
     dataFields.put(DataEntry.DataEntryType.HEADER_VERSION, new DataEntry(DataEntry.Format.INT16, 0, 2, (short) 0));
     dataFields.put(DataEntry.DataEntryType.DATA_SIZE, new DataEntry(DataEntry.Format.INT32, 2, 4, 64));
     dataFields.put(DataEntry.DataEntryType.DATA_ANALYSIS, new DataEntry(DataEntry.Format.INT16, 6, 2, (short) 2));
-    dataFields.put(DataEntry.DataEntryType.SCALE_COEFFICIENT, new DataEntry(DataEntry.Format.FLOAT, 8, 4, (float) 1));
+    dataFields.put(DataEntry.DataEntryType.SCALE_COEFFICIENT, new DataEntry(DataEntry.Format.FLOAT, 8, 4, (float)1.2619292647286784E-5));
     dataFields.put(DataEntry.DataEntryType.SCALE_OFFSET, new DataEntry(DataEntry.Format.FLOAT, 12, 4, (float) 0.0));
     dataFields.put(DataEntry.DataEntryType.RESERVED_1, new DataEntry(DataEntry.Format.NULL, 16, 48, 0));
     dataFields.put(DataEntry.DataEntryType.CONDITION_DESCRIPTION_SIZE, new DataEntry(DataEntry.Format.INT16, 64, 2, (short) 12));
@@ -47,6 +49,7 @@ public class DataFile
     dataFields.put(DataEntry.DataEntryType.VIB_P, new DataEntry(DataEntry.Format.FLOAT, 298, 4, (float) 0.0));
     dataFields.put(DataEntry.DataEntryType.VIB_PP, new DataEntry(DataEntry.Format.FLOAT, 302, 4, (float) 0.0));
     dataFields.put(DataEntry.DataEntryType.RESERVED_5, new DataEntry(DataEntry.Format.NULL, 306, 206, 0));
+    dataFields.put(DataEntry.DataEntryType.WAVE_DATA, new DataEntry(DataEntry.Format.WAVE_DATA, 512, UNLIMITED, List.of(1,2,3)));
 
   }
 
@@ -107,7 +110,7 @@ class DataEntry
   }
 
   enum Format
-  {INT16, INT32, INT64, FLOAT, NULL, STRING}
+  {INT16, INT32, INT64, FLOAT, NULL, STRING, WAVE_DATA}
 
   enum DataEntryType
   {
@@ -115,6 +118,6 @@ class DataEntry
     WORKING_CONDITION, CONDITION_DESCRIPTION_SIZE, WIND_FARM_NAME, TURBINE_NUM, SAMPLING_CHANNEL, MAX_GEN_POWER, MIN_GEN_POWER,
     MEAN_GEN_POWER, MAX_GEN_SPEED, MIN_GEN_SPEED, MEAN_GEN_SPEED, MAX_PITCH_ANGLE, MIN_PITCH_ANGLE, MEAN_PITCH_ANGLE, MAX_WIND_SPEED,
     MIN_WIND_SPEED, MEAN_WIND_SPEED, TIMESTAMP, SAMPLING_COUNTS, SAMPLING_RATE, SAVE_TIME_COM, COM_TYPE, ENDIANNESS, VALUE_TYPE, WAVE_LEN,
-    VIB_RMS, VIB_P, VIB_PP, RESERVED_5
+    VIB_RMS, VIB_P, VIB_PP, RESERVED_5, WAVE_DATA
   }
 }

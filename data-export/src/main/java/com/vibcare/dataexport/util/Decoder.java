@@ -2,12 +2,17 @@ package com.vibcare.dataexport.util;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import com.vibcare.dataexport.db.util.ByteHelper;
 
 public class Decoder
 {
-  public static int convertTo2UInt(byte[] bytes)
+  public static final int TWO_BYTES_STEP = 2;
+
+  public static short convertTo2UInt(byte[] bytes)
   {
     ByteBuffer bb = ByteBuffer.allocate(2);
     bb.order(ByteOrder.LITTLE_ENDIAN);
@@ -55,12 +60,6 @@ public class Decoder
     return Arrays.copyOfRange(allBytes, start, i);
   }
 
-  public static String convertToUTF8(byte[] bytes)
-  {
-    return new String(bytes, StandardCharsets.UTF_8);
-  }
-
-
   public static float toFloat(byte[] bytes)
   {
     int asInt = (bytes[0] & 0xFF)
@@ -68,5 +67,22 @@ public class Decoder
                 | ((bytes[2] & 0xFF) << 16)
                 | ((bytes[3] & 0xFF) << 24);
     return Float.intBitsToFloat(asInt);
+  }
+
+  public static String convertToString(byte[] allBytes, int start, int end)
+  {
+    return new String(getBytes(allBytes, start, end));
+  }
+
+  public static List<Short> convertToListOfShort(byte[] allBytes)
+  {
+    List<Short> result = new ArrayList<>();
+    for (int i = 0; i < allBytes.length; i = i + TWO_BYTES_STEP)
+    {
+      byte[] subArray = Arrays.copyOfRange(allBytes, i, i + TWO_BYTES_STEP);
+      short f = Decoder.convertTo2UInt(subArray);
+      result.add(f);
+    }
+    return result;
   }
 }

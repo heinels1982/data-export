@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import com.vibcare.dataexport.util.ByteConverter;
 import com.vibcare.dataexport.util.Decoder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,7 +44,7 @@ class BinaryWriterTest
       else if (entryElement.getFormat() == DataEntry.Format.STRING)
       {
         assertTrue(
-          ByteConverter.convertToString(allBytes, entryElement.getStartPosition(), entryElement.getEndPosition())
+          Decoder.convertToString(allBytes, entryElement.getStartPosition(), entryElement.getEndPosition())
             .contains(entryElement.getValue().toString()));
       }
       else if (entryElement.getFormat() == DataEntry.Format.INT64)
