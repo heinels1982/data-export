@@ -19,4 +19,13 @@ class WaveExtractorTest
     System.out.println(wave);
   }
 
+  @Test
+  public void test2() throws IOException
+  {
+    File waveFile = new File(
+      "/home/heinels/dev/work/data-export/test");
+    Wave wave = parse(waveFile);
+    System.out.println(wave);
+  }
+
 }

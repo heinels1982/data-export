@@ -7,20 +7,13 @@ import java.util.List;
 
 public class Encoder
 {
-  private static final double COEFFICIENT = 1.2619292647286784E-5;
-  public static byte[] encodeDoubleDataToShortInByte(List<Double> data, Double coefficient) {
-    ByteBuffer b = ByteBuffer.allocate(data.size() * 2);
-    for(Double datum: data) {
-      Short shortVal = (short)(datum/coefficient);
-      b.put(shortConvertToBytes(shortVal));
-    }
-    return b.array();
-}
 
-  public static byte[] encodeDoubleDataToIntInByte(List<Double> data, Double coefficient) {
+  public static byte[] encodeDoubleDataToShortInByte(List<Double> data, Double coefficient)
+  {
     ByteBuffer b = ByteBuffer.allocate(data.size() * 2);
-    for(Double datum: data) {
-      Short shortVal = (short)(datum/coefficient);
+    for (Double datum : data)
+    {
+      Short shortVal = (short) (datum / coefficient);
       b.put(shortConvertToBytes(shortVal));
     }
     return b.array();
@@ -52,6 +45,6 @@ public class Encoder
     Double maxVal = Math.abs(Collections.max(doubleList));
     Double minVal = Math.abs(Collections.min(doubleList));
     maxVal = getMax(maxVal, minVal);
-    return maxVal/(Short.MAX_VALUE - 1);
+    return maxVal / (Short.MAX_VALUE - 1);
   }
 }

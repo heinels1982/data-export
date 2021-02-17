@@ -4,26 +4,42 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EncoderTest
 {
-  private static final double COEFFICIENT = 0.000012619292647286784;
 
   @Test
-  public void testEncodeDoubleDataToShortInByte()
+  public void testEncodeDoubleDataToShortInByte_1()
   {
     List<Double> doubleList = List.of(1.594140625, -2.874, 1.5874, -2.047487);
     double coefficient = Encoder.findCoefficient(doubleList);
     byte[] bytes = Encoder.encodeDoubleDataToShortInByte(doubleList, coefficient);
-    assertNotNull(bytes);
     List<Short> shortValList = Decoder.convertToListOfShort(bytes);
-    System.out.println(shortValList.get(3) * coefficient);
-    assertEquals(1.594093755722395, shortValList.get(0) * coefficient);
-    assertEquals(-2.874, shortValList.get(1) * coefficient);
-    assertEquals(1.5873398644936825, shortValList.get(2) * coefficient);
-    assertEquals(-2.047481596777147, shortValList.get(3) * coefficient);
+
+    for (int i = 0; i < shortValList.size(); i++)
+    {
+      double rational = (shortValList.get(i) * coefficient) / (doubleList.get(i));
+      System.out.println(rational);
+      assertTrue(rational > 0.99 && rational <= 1);
+    }
+  }
+
+  @Test
+  public void testEncodeDoubleDataToShortInByte_2()
+  {
+    List<Double> defaultWaveData = List.of(0.125, -0.5478, 0.872);
+    double coefficient = Encoder.findCoefficient(defaultWaveData);
+    byte[] bytes = Encoder.encodeDoubleDataToShortInByte(defaultWaveData, coefficient);
+    List<Short> shortValList = Decoder.convertToListOfShort(bytes);
+
+    for (int i = 0; i < shortValList.size(); i++)
+    {
+      double rational = (shortValList.get(i) * coefficient) / (defaultWaveData.get(i));
+      System.out.println(rational);
+      assertTrue(rational > 0.99 && rational <= 1);
+    }
+
   }
 
 }

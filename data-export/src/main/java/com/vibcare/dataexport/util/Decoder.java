@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.vibcare.dataexport.db.util.ByteHelper;
-
 public class Decoder
 {
   public static final int TWO_BYTES_STEP = 2;

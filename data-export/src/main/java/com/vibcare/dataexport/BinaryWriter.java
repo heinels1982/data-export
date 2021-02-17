@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.List;
 
 import com.vibcare.dataexport.util.Encoder;
 
@@ -54,9 +55,12 @@ public class BinaryWriter
       }
       else if (entry.getFormat() == DataEntry.Format.WAVE_DATA)
       {
-//        ByteBuffer b = ByteBuffer.allocate(entry.getLength());
-//        b.put(entry.getValue().toString().getBytes());
-//        filOs.write(b.array());
+        List doubleValList = (List)entry.getValue();
+        double coefficient = Encoder.findCoefficient(doubleValList);
+        byte[] bytes = Encoder.encodeDoubleDataToShortInByte(doubleValList, coefficient);
+        ByteBuffer b = ByteBuffer.allocate(doubleValList.size() * 2);
+        b.put(bytes);
+        filOs.write(b.array());
       }
     }
     filOs.close();

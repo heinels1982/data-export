@@ -3,6 +3,7 @@ package com.vibcare.dataexport.parser;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -57,11 +58,11 @@ public class WaveExtractor
       byte[] waveBytes = Decoder.getBytes(allBytes, 512, allBytes.length);
       List<Short> shortList = Decoder.convertToListOfShort(waveBytes);
 
-//      FileWriter fw = new FileWriter("dataRGY");
-//      for(Short s : shortList) {
-//        fw.write(s * w.SCALE_COEFFICIENT + "\n");
-//      }
-//      fw.close();
+      FileWriter fw = new FileWriter("moi");
+      for(Short s : shortList) {
+        fw.write(s * w.SCALE_COEFFICIENT + "\n");
+      }
+      fw.close();
       //w.WAVE_DATA = ByteConverter.convertToString(allBytes, 512, allBytes.length);
     }
     catch (RuntimeException e)
