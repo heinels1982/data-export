@@ -1,8 +1,6 @@
 package com.vibcare.dataexport.db;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.vibcare.dataexport.db.util.EncodingHelper;
+import com.vibcare.dataexport.util.Encoder;
 
 import static com.vibcare.dataexport.db.util.EncodingHelper.reverseEncoding;
 
@@ -53,11 +52,11 @@ public class DBLoaderDAO
     jdbcTemplate.query(
       EncodingHelper.reverseEncoding(timeDataSql),
       preparedStatement -> {
-        encoding(timeMachineName);
-        preparedStatement.setString(1, encoding(timeMachineName));
-        preparedStatement.setString(2, encoding(timePointName));
-        preparedStatement.setString(3, encoding(timeScheduleName));
-        preparedStatement.setString(4, encoding(timeAxisName));
+        Encoder.encodingPropertiesChars(timeMachineName);
+        preparedStatement.setString(1, Encoder.encodingPropertiesChars(timeMachineName));
+        preparedStatement.setString(2, Encoder.encodingPropertiesChars(timePointName));
+        preparedStatement.setString(3, Encoder.encodingPropertiesChars(timeScheduleName));
+        preparedStatement.setString(4, Encoder.encodingPropertiesChars(timeAxisName));
       },
       (rs, rowNum) -> timeDataList.add(new TimeDataBuilder()
         .setMachineName(EncodingHelper.encoding(rs.getString("machineName")))
@@ -70,21 +69,6 @@ public class DBLoaderDAO
     );
     LOGGER.info("Start to execute sql with result {}", timeDataList.size());
     return timeDataList;
-  }
-
-  private String encoding(String str)
-  {
-    try
-    {
-      String properDisplay = new String(str.getBytes("ISO8859_1"));
-      return new String(properDisplay.getBytes(Charset.forName("GB2312")), Charset
-        .forName("ISO8859_1"));
-    }
-    catch (UnsupportedEncodingException e)
-    {
-      LOGGER.error(e.getMessage(), e);
-    }
-    return null;
   }
 
   private byte[] getAllBytes(Blob blob)
@@ -112,7 +96,7 @@ public class DBLoaderDAO
 
     jdbcTemplate.query(
       EncodingHelper.reverseEncoding(spectrumDataSql),
-      preparedStatement -> preparedStatement.setString(1, encoding("电机M1")),
+      preparedStatement -> preparedStatement.setString(1, Encoder.encodingPropertiesChars("电机M1")),
       (rs, rowNum) -> vibrationRawDataList.add(new TimeDataBuilder()
         .setMachineName(EncodingHelper.encoding(rs.getString("machineName")))
         .setPointName(EncodingHelper.encoding(rs.getString("pointName")))

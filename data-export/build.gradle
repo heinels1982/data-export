@@ -19,6 +19,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.firebirdsql.jdbc:jaybird-jdk18:4.0.0.java8'
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+	implementation group: 'com.google.guava', name: 'guava', version: '22.0'
 }
 
 test {
