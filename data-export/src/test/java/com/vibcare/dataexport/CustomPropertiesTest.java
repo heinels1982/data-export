@@ -17,8 +17,6 @@ class CustomPropertiesTest
   @Test
   public void test()
   {
-    System.out.println(Encoder.encodingPropertiesChars(properties.getSiteNameMapping().get("B")));
-    System.out.println(properties.getMachineNameMapping());
     assertNotNull(properties.getSiteNameMapping());
     assertNotNull(properties.getMachineNameMapping());
   }

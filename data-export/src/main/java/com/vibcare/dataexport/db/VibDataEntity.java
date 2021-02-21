@@ -2,6 +2,7 @@ package com.vibcare.dataexport.db;
 
 public class VibDataEntity
 {
+  private String vbProfileName;
   private String machineName;
   private String pointName;
   private String gmtEvent;
@@ -9,9 +10,10 @@ public class VibDataEntity
   private byte[] weaveFormData;
   private Double assocRpmInHz;
 
-  public VibDataEntity(String machineName, String pointName, String gmtEvent, Double maxSecsOrRevs, byte[] weaveFormData,
-    Double assocRpmInHz)
+  public VibDataEntity(String vbProfileName, String machineName, String pointName, String gmtEvent, Double maxSecsOrRevs,
+    byte[] weaveFormData, Double assocRpmInHz)
   {
+    this.vbProfileName = vbProfileName;
     this.machineName = machineName;
     this.pointName = pointName;
     this.gmtEvent = gmtEvent;
@@ -25,25 +27,30 @@ public class VibDataEntity
     return machineName;
   }
 
+  public String getVbProfileName()
+  {
+    return vbProfileName;
+  }
+
+  public String getGmtEvent()
+  {
+    return gmtEvent;
+  }
+
+  public byte[] getWeaveFormData()
+  {
+    return weaveFormData;
+  }
+
   public String getPointName()
   {
     return pointName;
   }
 
-//  public String getGmtEvent()
-//  {
-//    return gmtEvent;
-//  }
-
   public Double getMaxSecsOrRevs()
   {
     return maxSecsOrRevs;
   }
-
-//  public byte[] getWeaveFormData()
-//  {
-//    return weaveFormData;
-//  }
 
   public Double getAssocRpmInHz()
   {

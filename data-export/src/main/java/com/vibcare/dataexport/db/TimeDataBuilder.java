@@ -1,6 +1,7 @@
 package com.vibcare.dataexport.db;
 
 public class TimeDataBuilder {
+  private String vbProfileName;
   private String machineName;
   private String pointName;
   private String gmtEvent;
@@ -11,6 +12,12 @@ public class TimeDataBuilder {
   public TimeDataBuilder setMachineName(String machineName)
   {
     this.machineName = machineName;
+    return this;
+  }
+
+  public TimeDataBuilder setVbProfileName(String vbProfileName)
+  {
+    this.vbProfileName = vbProfileName;
     return this;
   }
 
@@ -46,6 +53,6 @@ public class TimeDataBuilder {
 
   public VibDataEntity createTimeData()
   {
-    return new VibDataEntity(machineName, pointName, gmtEvent, maxSecsOrRevs, weaveFormData, assocRpmInHz);
+    return new VibDataEntity(vbProfileName, machineName, pointName, gmtEvent, maxSecsOrRevs, weaveFormData, assocRpmInHz);
   }
 }

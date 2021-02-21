@@ -52,14 +52,15 @@ public class DBLoaderDAO
     jdbcTemplate.query(
       EncodingHelper.reverseEncoding(timeDataSql),
       preparedStatement -> {
-        Encoder.encodingPropertiesChars(timeMachineName);
-        preparedStatement.setString(1, Encoder.encodingPropertiesChars(timeMachineName));
-        preparedStatement.setString(2, Encoder.encodingPropertiesChars(timePointName));
-        preparedStatement.setString(3, Encoder.encodingPropertiesChars(timeScheduleName));
-        preparedStatement.setString(4, Encoder.encodingPropertiesChars(timeAxisName));
+//        Encoder.encodingPropertiesChars(timeMachineName);
+//        preparedStatement.setString(1, Encoder.encodingPropertiesChars(timeMachineName));
+//        preparedStatement.setString(2, Encoder.encodingPropertiesChars(timePointName));
+//        preparedStatement.setString(3, Encoder.encodingPropertiesChars(timeScheduleName));
+//        preparedStatement.setString(4, Encoder.encodingPropertiesChars(timeAxisName));
       },
       (rs, rowNum) -> timeDataList.add(new TimeDataBuilder()
-        .setMachineName(EncodingHelper.encoding(rs.getString("machineName")))
+        .setMachineName(rs.getString("machineName"))
+        .setVbProfileName(rs.getString("vbProfileName"))
         .setPointName(EncodingHelper.encoding(rs.getString("pointName")))
         .setMaxSecsOrRevs(rs.getDouble("maxSecsOrRevs"))
         .setGmtEvent(rs.getString("gmtEvent"))
