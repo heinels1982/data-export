@@ -11,7 +11,7 @@ public class DataFile
   private final String filename;
   private final Map<DataEntry.DataEntryType, DataEntry> dataFields = new LinkedHashMap<>();
   List defaultWaveData = List.of(0.125, -0.5478, 0.872);
-  private static int UNLIMITED = 0;
+  public static int UNLIMITED = 0;
   {
     dataFields.put(DataEntry.DataEntryType.HEADER_VERSION, new DataEntry(DataEntry.Format.INT16, 0, 2, (short) 0));
     dataFields.put(DataEntry.DataEntryType.DATA_SIZE, new DataEntry(DataEntry.Format.INT32, 2, 4, 64));
@@ -23,7 +23,7 @@ public class DataFile
     dataFields.put(DataEntry.DataEntryType.RESERVED_2, new DataEntry(DataEntry.Format.NULL, 66, 14, 0));
     dataFields.put(DataEntry.DataEntryType.WORKING_CONDITION, new DataEntry(DataEntry.Format.STRING, 80, 16, "Cond1"));
     dataFields.put(DataEntry.DataEntryType.WIND_FARM_NAME, new DataEntry(DataEntry.Format.STRING, 96, 16, "FARM1"));
-    dataFields.put(DataEntry.DataEntryType.TURBINE_NUM, new DataEntry(DataEntry.Format.STRING, 112, 16, "TURBINE1"));
+    dataFields.put(DataEntry.DataEntryType.TURBINE_NAME, new DataEntry(DataEntry.Format.STRING, 112, 16, "TURBINE1"));
     dataFields.put(DataEntry.DataEntryType.SAMPLING_CHANNEL, new DataEntry(DataEntry.Format.STRING, 128, 16, "SAMPLING_CH1"));
     dataFields.put(DataEntry.DataEntryType.MAX_GEN_POWER, new DataEntry(DataEntry.Format.FLOAT, 144, 4, (float) 0));
     dataFields.put(DataEntry.DataEntryType.MIN_GEN_POWER, new DataEntry(DataEntry.Format.FLOAT, 148, 4, (float) 0));
@@ -52,7 +52,10 @@ public class DataFile
     dataFields.put(DataEntry.DataEntryType.VIB_PP, new DataEntry(DataEntry.Format.FLOAT, 302, 4, (float) 0.0));
     dataFields.put(DataEntry.DataEntryType.RESERVED_5, new DataEntry(DataEntry.Format.NULL, 306, 206, 0));
     dataFields.put(DataEntry.DataEntryType.WAVE_DATA, new DataEntry(DataEntry.Format.WAVE_DATA, 512, UNLIMITED, defaultWaveData));
+  }
 
+  public void updateDataFields(DataEntry.DataEntryType type, Object val) {
+    dataFields.get(type).setValue(val);
   }
 
   public DataFile(String filename)
@@ -75,7 +78,8 @@ class DataEntry
 {
   private final int startPosition;
   private final int length;
-  private final Object value;
+  private Object value;
+
   private final Format format;
 
   public DataEntry(Format format, int startPosition, int length, Object value)
@@ -111,13 +115,18 @@ class DataEntry
     return value;
   }
 
+  public void setValue(Object value)
+  {
+    this.value = value;
+  }
+
   enum Format
   {INT16, INT32, INT64, FLOAT, NULL, STRING, WAVE_DATA}
 
   enum DataEntryType
   {
     HEADER_VERSION, DATA_SIZE, DATA_ANALYSIS, SCALE_COEFFICIENT, SCALE_OFFSET, RESERVED_1, RESERVED_2, RESERVED_3, RESERVED_4,
-    WORKING_CONDITION, CONDITION_DESCRIPTION_SIZE, WIND_FARM_NAME, TURBINE_NUM, SAMPLING_CHANNEL, MAX_GEN_POWER, MIN_GEN_POWER,
+    WORKING_CONDITION, CONDITION_DESCRIPTION_SIZE, WIND_FARM_NAME, TURBINE_NAME, SAMPLING_CHANNEL, MAX_GEN_POWER, MIN_GEN_POWER,
     MEAN_GEN_POWER, MAX_GEN_SPEED, MIN_GEN_SPEED, MEAN_GEN_SPEED, MAX_PITCH_ANGLE, MIN_PITCH_ANGLE, MEAN_PITCH_ANGLE, MAX_WIND_SPEED,
     MIN_WIND_SPEED, MEAN_WIND_SPEED, TIMESTAMP, SAMPLING_COUNTS, SAMPLING_RATE, SAVE_TIME_COM, COM_TYPE, ENDIANNESS, VALUE_TYPE, WAVE_LEN,
     VIB_RMS, VIB_P, VIB_PP, RESERVED_5, WAVE_DATA

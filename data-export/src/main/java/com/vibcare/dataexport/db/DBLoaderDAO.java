@@ -61,6 +61,7 @@ public class DBLoaderDAO
       (rs, rowNum) -> timeDataList.add(new TimeDataBuilder()
         .setMachineName(rs.getString("machineName"))
         .setVbProfileName(rs.getString("vbProfileName"))
+        .setLocId(rs.getInt("locationId"))
         .setPointName(EncodingHelper.encoding(rs.getString("pointName")))
         .setMaxSecsOrRevs(rs.getDouble("maxSecsOrRevs"))
         .setGmtEvent(rs.getString("gmtEvent"))

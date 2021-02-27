@@ -10,14 +10,17 @@ import org.springframework.stereotype.Component;
 public class DataFilePrefixGenerator
 {
 
-  private static final String  MACHINE_CODE_PREFIX = "FJ";
+  private static final String MACHINE_CODE_PREFIX = "FJ";
   private static final String SITE_CODE_PREFIX = "ZD";
+  private static final String CHANNEL_CODE_PREFIX = "CH";
   private final Map<String, String> unmappedMachine = new HashMap();
   private final Map<String, String> unmappedSite = new HashMap();
+  private final Map<Integer, String> unmappedChannel = new HashMap();
   @Autowired
   private CustomPropertiesProxy properties;
   private int unmappedMachineCount = 1;
   private int unmappedSiteCount = 1;
+  private int unmappedChannelCount = 1;
 
   public String getMachineCode(String machineName)
   {
@@ -37,7 +40,7 @@ public class DataFilePrefixGenerator
     return machineCode;
   }
 
-  public String getSiteCode(String vbProfileName)
+  public String getFarmCode(String vbProfileName)
   {
     String siteCode = properties.getSiteNameMapping().get(vbProfileName);
 
@@ -52,6 +55,16 @@ public class DataFilePrefixGenerator
       siteCode = unmappedSite.get(vbProfileName);
     }
     return siteCode;
+  }
 
+  public String getChannelCode(Integer locId)
+  {
+    if (unmappedChannel.get(locId) == null)
+    {
+      String generatedSiteCode = CHANNEL_CODE_PREFIX + unmappedChannelCount;
+      unmappedChannelCount++;
+      unmappedChannel.put(locId, generatedSiteCode);
+    }
+    return unmappedChannel.get(locId);
   }
 }

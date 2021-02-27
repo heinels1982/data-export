@@ -40,15 +40,15 @@ public class Encoder
     return b;
   }
 
-  public static double getMax(double a, double b)
+  public static Float getMax(Float a, Float b)
   {
     return (a > b ? a : b);
   }
 
-  public static double findCoefficient(List<Double> doubleList)
+  public static Float findCoefficient(List<Double> doubleList)
   {
-    Double maxVal = Math.abs(Collections.max(doubleList));
-    Double minVal = Math.abs(Collections.min(doubleList));
+    Float maxVal = (float)Math.abs(Collections.max(doubleList));
+    Float minVal = (float)Math.abs(Collections.min(doubleList));
     maxVal = getMax(maxVal, minVal);
     return maxVal / (Short.MAX_VALUE - 1);
   }

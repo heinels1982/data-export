@@ -4,10 +4,12 @@ public class TimeDataBuilder {
   private String vbProfileName;
   private String machineName;
   private String pointName;
+  private Integer pointId;
   private String gmtEvent;
   private Double maxSecsOrRevs;
   private byte[] weaveFormData;
   private Double assocRpmInHz;
+  private Integer locId;
 
   public TimeDataBuilder setMachineName(String machineName)
   {
@@ -51,8 +53,14 @@ public class TimeDataBuilder {
     return this;
   }
 
+  public TimeDataBuilder setLocId(Integer locId)
+  {
+    this.locId = locId;
+    return this;
+  }
+
   public VibDataEntity createTimeData()
   {
-    return new VibDataEntity(vbProfileName, machineName, pointName, gmtEvent, maxSecsOrRevs, weaveFormData, assocRpmInHz);
+    return new VibDataEntity(vbProfileName, machineName, pointName, gmtEvent, maxSecsOrRevs, weaveFormData, assocRpmInHz, locId);
   }
 }
