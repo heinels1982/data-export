@@ -58,9 +58,10 @@ public class DataExporter
     df.updateDataFields(DataEntry.DataEntryType.SAMPLING_RATE, (int) (dataEntity.getSamplingCounts() / dataEntity.getMaxSecsOrRevs()));
     df.updateDataFields(DataEntry.DataEntryType.WAVE_LEN, dataEntity.getWeaveFormData().length);
     df.updateDataFields(DataEntry.DataEntryType.TIMESTAMP, DateUtil.convertByFormat(dataEntity.getGmtEvent(), "yyyyMMddHHmmss"));
-    //sampling rate
+    df.updateDataFields(DataEntry.DataEntryType.VIB_RMS, dataEntity.getRmsOverall());
+    df.updateDataFields(DataEntry.DataEntryType.VIB_P, dataEntity.getCrestFactor());
+    df.updateDataFields(DataEntry.DataEntryType.VIB_PP, dataEntity.getTruePkpk());
     df.updateDataFields(DataEntry.DataEntryType.WAVE_DATA, waveElementList);
-
     return df;
   }
 

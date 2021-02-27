@@ -73,4 +73,20 @@ public class VibDataEntity
   {
     return assocRpmInHz;
   }
+
+  public Float getRmsOverall()
+  {
+    return rmsOverall;
+  }
+
+  public Float getTruePkpk()
+  {
+    return truePkpk;
+  }
+
+  public Float getCrestFactor()
+  {
+    return crestFactor;
+  }
+
 }
