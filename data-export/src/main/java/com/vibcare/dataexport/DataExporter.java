@@ -46,11 +46,20 @@ public class DataExporter
     DataFile df = new DataFile(concatenateFileName(dataEntity));
     List<Double> waveElementList = DataConverter.convertToListOfFloat(dataEntity.getWeaveFormData());
 
-    df.updateDataFields(DataEntry.DataEntryType.WIND_FARM_NAME,  dataFilePrefixGenerator.getFarmCode(dataEntity.getVbProfileName()));
+    df.updateDataFields(DataEntry.DataEntryType.WIND_FARM_NAME, dataFilePrefixGenerator.getFarmCode(dataEntity.getVbProfileName()));
     df.updateDataFields(DataEntry.DataEntryType.TURBINE_NAME, dataFilePrefixGenerator.getMachineCode(dataEntity.getMachineName()));
     df.updateDataFields(DataEntry.DataEntryType.SAMPLING_CHANNEL, dataFilePrefixGenerator.getChannelCode(dataEntity.getLocId()));
     df.updateDataFields(DataEntry.DataEntryType.SCALE_COEFFICIENT, Encoder.findCoefficient(waveElementList));
-    //df.updateDataFields(DataEntry.DataEntryType.WAVE_DATA, waveElementList);
+    float rpm = (float) (dataEntity.getAssocRpmInHz() * 60);
+    df.updateDataFields(DataEntry.DataEntryType.MAX_GEN_SPEED, rpm);
+    df.updateDataFields(DataEntry.DataEntryType.MIN_GEN_SPEED, rpm);
+    df.updateDataFields(DataEntry.DataEntryType.MEAN_GEN_SPEED, rpm);
+    df.updateDataFields(DataEntry.DataEntryType.SAMPLING_COUNTS, dataEntity.getSamplingCounts());
+    df.updateDataFields(DataEntry.DataEntryType.SAMPLING_RATE, (int) (dataEntity.getSamplingCounts() / dataEntity.getMaxSecsOrRevs()));
+    df.updateDataFields(DataEntry.DataEntryType.WAVE_LEN, dataEntity.getWeaveFormData().length);
+    df.updateDataFields(DataEntry.DataEntryType.TIMESTAMP, DateUtil.convertByFormat(dataEntity.getGmtEvent(), "yyyyMMddHHmmss"));
+    //sampling rate
+    df.updateDataFields(DataEntry.DataEntryType.WAVE_DATA, waveElementList);
 
     return df;
   }

@@ -58,7 +58,7 @@ public class DBLoaderDAO
 //        preparedStatement.setString(3, Encoder.encodingPropertiesChars(timeScheduleName));
 //        preparedStatement.setString(4, Encoder.encodingPropertiesChars(timeAxisName));
       },
-      (rs, rowNum) -> timeDataList.add(new TimeDataBuilder()
+      (rs, rowNum) -> timeDataList.add(new VibDataEntityBuilder()
         .setMachineName(rs.getString("machineName"))
         .setVbProfileName(rs.getString("vbProfileName"))
         .setLocId(rs.getInt("locationId"))
@@ -67,7 +67,8 @@ public class DBLoaderDAO
         .setGmtEvent(rs.getString("gmtEvent"))
         .setWeaveFormData(getAllBytes(rs.getBlob("WAVEFORM_DATA")))
         .setAssocRpmInHz(rs.getDouble("ASSOC_RPM_IN_HZ"))
-        .createTimeData())
+        .setSamplingCounts(rs.getInt("samplingCounts"))
+        .createVibDataEntity())
     );
     LOGGER.info("Start to execute sql with result {}", timeDataList.size());
     return timeDataList;
@@ -99,14 +100,14 @@ public class DBLoaderDAO
     jdbcTemplate.query(
       EncodingHelper.reverseEncoding(spectrumDataSql),
       preparedStatement -> preparedStatement.setString(1, Encoder.encodingPropertiesChars("电机M1")),
-      (rs, rowNum) -> vibrationRawDataList.add(new TimeDataBuilder()
+      (rs, rowNum) -> vibrationRawDataList.add(new VibDataEntityBuilder()
         .setMachineName(EncodingHelper.encoding(rs.getString("machineName")))
         .setPointName(EncodingHelper.encoding(rs.getString("pointName")))
         .setMaxSecsOrRevs(rs.getDouble("maxSecsOrRevs"))
         .setGmtEvent(rs.getString("gmtEvent"))
         .setWeaveFormData(getAllBytes(rs.getBlob("SPECTRUM_DATA")))
         .setAssocRpmInHz(rs.getDouble("ASSOC_RPM_IN_HZ"))
-        .createTimeData())
+        .createVibDataEntity())
     );
     return vibrationRawDataList;
   }
