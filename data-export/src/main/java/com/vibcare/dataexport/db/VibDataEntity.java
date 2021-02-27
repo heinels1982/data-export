@@ -12,9 +12,13 @@ public class VibDataEntity
   private Double assocRpmInHz;
   private Integer samplingCounts;
   private Integer locId;
+  private Float rmsOverall;
+  private Float truePkpk;
+  private Float crestFactor;
 
   public VibDataEntity(String vbProfileName, String machineName, String pointName, String gmtEvent, Double maxSecsOrRevs,
-    byte[] weaveFormData, Double assocRpmInHz, Integer locId, Integer samplingCounts)
+    byte[] weaveFormData, Double assocRpmInHz, Integer samplingCounts, Integer locId, Float rmsOverall, Float truePkpk,
+    Float crestFactor)
   {
     this.vbProfileName = vbProfileName;
     this.machineName = machineName;
@@ -23,8 +27,11 @@ public class VibDataEntity
     this.maxSecsOrRevs = maxSecsOrRevs;
     this.weaveFormData = weaveFormData;
     this.assocRpmInHz = assocRpmInHz;
-    this.locId = locId;
     this.samplingCounts = samplingCounts;
+    this.locId = locId;
+    this.rmsOverall = rmsOverall;
+    this.truePkpk = truePkpk;
+    this.crestFactor = crestFactor;
   }
 
   public String getMachineName()
@@ -55,11 +62,6 @@ public class VibDataEntity
   public Integer getLocId()
   {
     return locId;
-  }
-
-  public String getPointName()
-  {
-    return pointName;
   }
 
   public Double getMaxSecsOrRevs()

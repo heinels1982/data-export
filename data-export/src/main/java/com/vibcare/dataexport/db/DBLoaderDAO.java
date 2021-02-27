@@ -68,6 +68,9 @@ public class DBLoaderDAO
         .setWeaveFormData(getAllBytes(rs.getBlob("WAVEFORM_DATA")))
         .setAssocRpmInHz(rs.getDouble("ASSOC_RPM_IN_HZ"))
         .setSamplingCounts(rs.getInt("samplingCounts"))
+        .setSamplingCounts(rs.getInt("RMS_OVERALL"))
+        .setSamplingCounts(rs.getInt("TRUE_PKPK"))
+        .setSamplingCounts(rs.getInt("CREST_FACTOR"))
         .createVibDataEntity())
     );
     LOGGER.info("Start to execute sql with result {}", timeDataList.size());
