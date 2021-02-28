@@ -15,12 +15,10 @@ public class DataFilePrefixGenerator
   private static final String CHANNEL_CODE_PREFIX = "CH";
   private final Map<String, String> unmappedMachine = new HashMap();
   private final Map<String, String> unmappedSite = new HashMap();
-  private final Map<Integer, String> unmappedChannel = new HashMap();
   @Autowired
   private CustomPropertiesProxy properties;
   private int unmappedMachineCount = 1;
   private int unmappedSiteCount = 1;
-  private int unmappedChannelCount = 1;
 
   public String getMachineCode(String machineName)
   {
@@ -48,7 +46,7 @@ public class DataFilePrefixGenerator
     {
       if (unmappedSite.get(vbProfileName) == null)
       {
-        String generatedSiteCode = SITE_CODE_PREFIX + unmappedMachineCount;
+        String generatedSiteCode = SITE_CODE_PREFIX + unmappedSiteCount;
         unmappedSiteCount++;
         unmappedSite.put(vbProfileName, generatedSiteCode);
       }

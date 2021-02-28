@@ -1,29 +1,53 @@
 package com.vibcare.dataexport;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.vibcare.dataexport.ftp.FTPConnection;
+
 @SpringBootApplication
 public class DataExportApplication implements CommandLineRunner
 {
-	@Autowired
-	private DataExporter dataExporter;
 
-	public static void main(String[] args) throws IOException, ParseException
-	{
-		SpringApplication.run(DataExportApplication.class, args);
-	}
+  private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Override
-	public void run(String... args) throws Exception
-	{
-		dataExporter.export();
-		//System.exit(0);
-	}
+  @Autowired
+  private DataExporter dataExporter;
+
+  public static void main(String[] args)
+  {
+    SpringApplication.run(DataExportApplication.class, args);
+  }
+
+  @Override
+  public void run(String... args) throws IOException, ParseException
+  {
+    dataExporter.export();
+    uploadFtp();
+//    if ("prod".equalsIgnoreCase(args[0]))
+//    {
+//      System.exit(0);
+//    }
+  }
+
+  private void uploadFtp() throws IOException
+  {
+    FTPConnection ftpConn = new FTPConnection();
+    File outputDir = new File("out");
+    logger.info("Uploading file from " + outputDir.getAbsolutePath());
+
+    ftpConn.connect("192.168.3.99", "sa", "0000");
+    ftpConn.upload(new File("out"));
+    ftpConn.disconnect();
+    logger.info("Uploading files complete");
+  }
 
 }
