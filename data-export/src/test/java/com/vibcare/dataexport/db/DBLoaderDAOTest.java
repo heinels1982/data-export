@@ -36,7 +36,6 @@ public class DBLoaderDAOTest
     //    assertEquals(EXPECTED_RPM_NUMBER, timeDataList.get(0).getAssocRpmInHz());
   }
 
-
   @Test
   public void testByteIsDecodedCorrectly()
   {
