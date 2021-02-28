@@ -15,10 +15,12 @@ public class VibDataEntity
   private Float rmsOverall;
   private Float truePkpk;
   private Float crestFactor;
+  private Integer channelId;
+
 
   public VibDataEntity(String vbProfileName, String machineName, String pointName, String gmtEvent, Double maxSecsOrRevs,
     byte[] weaveFormData, Double assocRpmInHz, Integer samplingCounts, Integer locId, Float rmsOverall, Float truePkpk,
-    Float crestFactor)
+    Float crestFactor, Integer channelId)
   {
     this.vbProfileName = vbProfileName;
     this.machineName = machineName;
@@ -32,6 +34,7 @@ public class VibDataEntity
     this.rmsOverall = rmsOverall;
     this.truePkpk = truePkpk;
     this.crestFactor = crestFactor;
+    this.channelId = channelId;
   }
 
   public String getMachineName()
@@ -87,6 +90,11 @@ public class VibDataEntity
   public Float getCrestFactor()
   {
     return crestFactor;
+  }
+
+  public Integer getChannelId()
+  {
+    return channelId;
   }
 
 }

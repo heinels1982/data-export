@@ -14,16 +14,14 @@ class WaveExtractorTest
   public void test1() throws IOException
   {
     File waveFile = new File(
-      "/home/heinels/dev/work/data-export/src/main/resources/test/data/示例数据/仪征/AAAA_01_20190717132547_CH11_Cond1.dat");
+      "src/main/resources/test/data/示例数据/仪征/AAAA_01_20190717132547_CH11_Cond1.dat");
     Wave wave = parse(waveFile);
-    System.out.println(wave);
   }
 
   @Test
   public void test2() throws IOException
   {
-    File waveFile = new File(
-      "/home/heinels/dev/work/data-export/test");
+    File waveFile = new File("test");
     Wave wave = parse(waveFile);
     System.out.println(wave);
   }

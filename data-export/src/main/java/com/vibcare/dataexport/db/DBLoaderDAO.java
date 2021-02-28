@@ -71,6 +71,7 @@ public class DBLoaderDAO
         .setRmsOverall(rs.getFloat("RMS_OVERALL"))
         .setTruePkpk(rs.getFloat("TRUE_PKPK"))
         .setCrestFactor(rs.getFloat("CREST_FACTOR"))
+        .setChannelId(rs.getInt("CHANNEL_ID"))
         .createVibDataEntity())
     );
     LOGGER.info("Start to execute sql with result {}", timeDataList.size());

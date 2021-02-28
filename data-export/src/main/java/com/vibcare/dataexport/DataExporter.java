@@ -48,7 +48,7 @@ public class DataExporter
 
     df.updateDataFields(DataEntry.DataEntryType.WIND_FARM_NAME, dataFilePrefixGenerator.getFarmCode(dataEntity.getVbProfileName()));
     df.updateDataFields(DataEntry.DataEntryType.TURBINE_NAME, dataFilePrefixGenerator.getMachineCode(dataEntity.getMachineName()));
-    df.updateDataFields(DataEntry.DataEntryType.SAMPLING_CHANNEL, dataFilePrefixGenerator.getChannelCode(dataEntity.getLocId()));
+    df.updateDataFields(DataEntry.DataEntryType.SAMPLING_CHANNEL, dataFilePrefixGenerator.getChannelCode(dataEntity.getChannelId()));
     df.updateDataFields(DataEntry.DataEntryType.SCALE_COEFFICIENT, Encoder.findCoefficient(waveElementList));
     float rpm = (float) (dataEntity.getAssocRpmInHz() * 60);
     df.updateDataFields(DataEntry.DataEntryType.MAX_GEN_SPEED, rpm);
@@ -69,7 +69,7 @@ public class DataExporter
   {
     String siteCode = dataFilePrefixGenerator.getFarmCode(dataEntity.getVbProfileName());
     String machineCode = dataFilePrefixGenerator.getMachineCode(dataEntity.getMachineName());
-    String channelCode = dataFilePrefixGenerator.getChannelCode(dataEntity.getLocId());
+    String channelCode = dataFilePrefixGenerator.getChannelCode(dataEntity.getChannelId());
     return OUTPUT_DIR + siteCode + UNDER_LINE + machineCode + UNDER_LINE + DateUtil.convertByFormat(dataEntity.getGmtEvent(),
       "yyyyMMddHHmmss") + UNDER_LINE + channelCode + UNDER_LINE + CONDITION_NAME;
   }
@@ -82,5 +82,7 @@ public class DataExporter
       outDir.mkdir();
     }
   }
+
+
 
 }

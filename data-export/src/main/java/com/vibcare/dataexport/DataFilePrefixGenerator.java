@@ -57,14 +57,8 @@ public class DataFilePrefixGenerator
     return siteCode;
   }
 
-  public String getChannelCode(Integer locId)
+  public String getChannelCode(Integer channelCode)
   {
-    if (unmappedChannel.get(locId) == null)
-    {
-      String generatedSiteCode = CHANNEL_CODE_PREFIX + unmappedChannelCount;
-      unmappedChannelCount++;
-      unmappedChannel.put(locId, generatedSiteCode);
-    }
-    return unmappedChannel.get(locId);
+    return CHANNEL_CODE_PREFIX + channelCode;
   }
 }

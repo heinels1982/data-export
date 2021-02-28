@@ -13,6 +13,7 @@ public class VibDataEntityBuilder {
   private Float rmsOverall;
   private Float truePkpk;
   private Float crestFactor;
+  private Integer channelId;
 
   public VibDataEntityBuilder setVbProfileName(String vbProfileName)
   {
@@ -89,6 +90,12 @@ public class VibDataEntityBuilder {
   public VibDataEntity createVibDataEntity()
   {
     return new VibDataEntity(vbProfileName, machineName, pointName, gmtEvent, maxSecsOrRevs, weaveFormData, assocRpmInHz, samplingCounts,
-      locId, rmsOverall, truePkpk, crestFactor);
+      locId, rmsOverall, truePkpk, crestFactor, channelId);
+  }
+
+  public VibDataEntityBuilder setChannelId(Integer channelId)
+  {
+    this.channelId = channelId;
+    return this;
   }
 }
