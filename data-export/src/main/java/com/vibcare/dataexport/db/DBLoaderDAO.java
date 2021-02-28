@@ -44,6 +44,9 @@ public class DBLoaderDAO
   @Value("${time.axis.name:}")
   private String timeAxisName;
 
+  @Value("${time.dataType:}")
+  private String dataType;
+
   public List<VibDataEntity> readTimeData()
   {
     List<VibDataEntity> timeDataList = new ArrayList();
@@ -52,11 +55,7 @@ public class DBLoaderDAO
     jdbcTemplate.query(
       EncodingHelper.reverseEncoding(timeDataSql),
       preparedStatement -> {
-//        Encoder.encodingPropertiesChars(timeMachineName);
-//        preparedStatement.setString(1, Encoder.encodingPropertiesChars(timeMachineName));
-//        preparedStatement.setString(2, Encoder.encodingPropertiesChars(timePointName));
-//        preparedStatement.setString(3, Encoder.encodingPropertiesChars(timeScheduleName));
-//        preparedStatement.setString(4, Encoder.encodingPropertiesChars(timeAxisName));
+        preparedStatement.setString(1, Encoder.encodingPropertiesChars("%" + dataType + "%"));
       },
       (rs, rowNum) -> timeDataList.add(new VibDataEntityBuilder()
         .setMachineName(rs.getString("machineName"))

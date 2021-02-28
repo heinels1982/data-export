@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.vibcare.dataexport.ftp.FTPConnection;
+import com.vibcare.dataexport.ftp.FtpConfig;
 
 @SpringBootApplication
 public class DataExportApplication implements CommandLineRunner
@@ -21,6 +22,9 @@ public class DataExportApplication implements CommandLineRunner
 
   @Autowired
   private DataExporter dataExporter;
+
+  @Autowired
+  private FtpConfig conf;
 
   public static void main(String[] args)
   {
@@ -32,10 +36,10 @@ public class DataExportApplication implements CommandLineRunner
   {
     dataExporter.export();
     uploadFtp();
-//    if ("prod".equalsIgnoreCase(args[0]))
-//    {
-//      System.exit(0);
-//    }
+    //    if ("prod".equalsIgnoreCase(args[0]))
+    //    {
+    //      System.exit(0);
+    //    }
   }
 
   private void uploadFtp() throws IOException
@@ -44,7 +48,7 @@ public class DataExportApplication implements CommandLineRunner
     File outputDir = new File("out");
     logger.info("Uploading file from " + outputDir.getAbsolutePath());
 
-    ftpConn.connect("192.168.3.99", "sa", "0000");
+    ftpConn.connect(conf.getFtpServer(), conf.getFtpUser(), conf.getFtpPassword());
     ftpConn.upload(new File("out"));
     ftpConn.disconnect();
     logger.info("Uploading files complete");

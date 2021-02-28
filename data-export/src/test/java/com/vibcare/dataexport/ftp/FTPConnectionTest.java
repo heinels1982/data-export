@@ -21,7 +21,7 @@ public class FTPConnectionTest
   private FtpConfig conf;
 
   @BeforeAll
-  public static void beforeAll() throws IOException
+  public static void beforeAll()
   {
     ftp = new FTPConnection();
 
