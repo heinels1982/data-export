@@ -9,7 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DataExportApplication
+public class DataExportApplication implements CommandLineRunner
 {
 	@Autowired
 	private DataExporter dataExporter;
@@ -19,6 +19,11 @@ public class DataExportApplication
 		SpringApplication.run(DataExportApplication.class, args);
 	}
 
-
+	@Override
+	public void run(String... args) throws Exception
+	{
+		dataExporter.export();
+		//System.exit(0);
+	}
 
 }
