@@ -23,26 +23,12 @@ import static com.vibcare.dataexport.db.util.EncodingHelper.reverseEncoding;
 public class DBLoaderDAO
 {
   private static final Logger LOGGER = LoggerFactory.getLogger(DBLoaderDAO.class);
+
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
   @Value("${dbloader.sql.time.data:}")
   private String timeDataSql;
-
-  @Value("${dbloader.sql.spectrum.data:}")
-  private String spectrumDataSql;
-
-  @Value("${time.machine.name:}")
-  private String timeMachineName;
-
-  @Value("${time.point.name:}")
-  private String timePointName;
-
-  @Value("${time.schedule.name:}")
-  private String timeScheduleName;
-
-  @Value("${time.axis.name:}")
-  private String timeAxisName;
 
   @Value("${time.dataType:}")
   private String dataType;
@@ -92,26 +78,5 @@ public class DBLoaderDAO
       LOGGER.error(e.getMessage(), e);
     }
     return null;
-  }
-
-  public List<VibDataEntity> readSpectrumData()
-  {
-    List<VibDataEntity> vibrationRawDataList = new ArrayList();
-
-    LOGGER.info("Start to execute sql {}", reverseEncoding(spectrumDataSql));
-
-    jdbcTemplate.query(
-      EncodingHelper.reverseEncoding(spectrumDataSql),
-      preparedStatement -> preparedStatement.setString(1, Encoder.encodingPropertiesChars("电机M1")),
-      (rs, rowNum) -> vibrationRawDataList.add(new VibDataEntityBuilder()
-        .setMachineName(EncodingHelper.encoding(rs.getString("machineName")))
-        .setPointName(EncodingHelper.encoding(rs.getString("pointName")))
-        .setMaxSecsOrRevs(rs.getDouble("maxSecsOrRevs"))
-        .setGmtEvent(rs.getString("gmtEvent"))
-        .setWeaveFormData(getAllBytes(rs.getBlob("SPECTRUM_DATA")))
-        .setAssocRpmInHz(rs.getDouble("ASSOC_RPM_IN_HZ"))
-        .createVibDataEntity())
-    );
-    return vibrationRawDataList;
   }
 }

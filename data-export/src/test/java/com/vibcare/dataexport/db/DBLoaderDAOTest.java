@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.vibcare.dataexport.DataExportApplication;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -18,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class DBLoaderDAOTest
 {
   private static final int SPECTRUM_TOTAL_ENTRIES = 15;
-  private static final int TIME_DATA_TOTAL_ENTRIES = 4335;
+  private static final int TIME_DATA_TOTAL_ENTRIES = 1066;
   private static final double EXPECTED_RPM_NUMBER = 44.0;
   private static final double DATA_COLLECTION_DURATION = 1.6;
 
@@ -32,21 +31,11 @@ public class DBLoaderDAOTest
     List<VibDataEntity> timeDataList = loader.readTimeData();
     assertEquals(TIME_DATA_TOTAL_ENTRIES, timeDataList.size());
     assertTrue(timeDataList.get(0).getMachineName().contains("2150"));
-//    assertTrue(timeDataList.get(0).getPointName().contains("M1"));
-//    assertEquals(DATA_COLLECTION_DURATION, timeDataList.get(0).getMaxSecsOrRevs());
-//    assertEquals(EXPECTED_RPM_NUMBER, timeDataList.get(0).getAssocRpmInHz());
+    //    assertTrue(timeDataList.get(0).getPointName().contains("M1"));
+    //    assertEquals(DATA_COLLECTION_DURATION, timeDataList.get(0).getMaxSecsOrRevs());
+    //    assertEquals(EXPECTED_RPM_NUMBER, timeDataList.get(0).getAssocRpmInHz());
   }
 
-  @Test
-  //TODO
-  public void testSpectrumDataIsLoadedCorrectly()
-  {
-    List<VibDataEntity> vibrationRawDataList = loader.readSpectrumData();
-    assertNotNull(vibrationRawDataList);
-    //assertEquals(SPECTRUM_TOTAL_ENTRIES, vibrationRawDataList.size());
-    //assertNotNull(vibrationRawDataList.get(0).getMachineName());
-    //assertEquals(EXPECTED_RPM_NUMBER, vibrationRawDataList.get(0).getAssocRpmInHz());
-  }
 
   @Test
   public void testByteIsDecodedCorrectly()
