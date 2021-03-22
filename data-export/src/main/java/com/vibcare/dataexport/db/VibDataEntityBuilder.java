@@ -9,11 +9,11 @@ public class VibDataEntityBuilder {
   private byte[] weaveFormData;
   private Double assocRpmInHz;
   private Integer samplingCounts;
-  private Integer locId;
   private Float rmsOverall;
   private Float truePkpk;
   private Float crestFactor;
   private Integer channelId;
+  private String axisName;
 
   public VibDataEntityBuilder setVbProfileName(String vbProfileName)
   {
@@ -63,12 +63,6 @@ public class VibDataEntityBuilder {
     return this;
   }
 
-  public VibDataEntityBuilder setLocId(Integer locId)
-  {
-    this.locId = locId;
-    return this;
-  }
-
   public VibDataEntityBuilder setRmsOverall(Float rmsOverall)
   {
     this.rmsOverall = rmsOverall;
@@ -87,15 +81,21 @@ public class VibDataEntityBuilder {
     return this;
   }
 
-  public VibDataEntity createVibDataEntity()
-  {
-    return new VibDataEntity(vbProfileName, machineName, pointName, gmtEvent, maxSecsOrRevs, weaveFormData, assocRpmInHz, samplingCounts,
-      locId, rmsOverall, truePkpk, crestFactor, channelId);
-  }
-
   public VibDataEntityBuilder setChannelId(Integer channelId)
   {
     this.channelId = channelId;
     return this;
+  }
+
+  public VibDataEntityBuilder setAxisName(String axisName)
+  {
+    this.axisName = axisName;
+    return this;
+  }
+
+  public VibDataEntity createVibDataEntity()
+  {
+    return new VibDataEntity(vbProfileName, machineName, pointName, gmtEvent, maxSecsOrRevs, weaveFormData, assocRpmInHz, samplingCounts,
+      rmsOverall, truePkpk, crestFactor, channelId, axisName);
   }
 }

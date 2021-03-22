@@ -12,6 +12,7 @@ public class CustomProperties
 {
   private final Map<String, String> siteNameMapping = new HashMap<>();
   private final Map<String, String> machineNameMapping = new HashMap<>();
+  private final Map<String, String> channelMapping = new HashMap<>();
 
   public Map<String, String> getSiteNameMapping()
   {
@@ -21,5 +22,10 @@ public class CustomProperties
   public Map<String, String> getMachineNameMapping()
   {
     return machineNameMapping;
+  }
+
+  public Map<String, String> getChannelMapping()
+  {
+    return channelMapping;
   }
 }

@@ -14,6 +14,8 @@ public class CustomPropertiesProxy
 {
   private static Map<String, String> machineNameReverseMapping;
   private static Map<String, String> siteNameReverseMapping;
+  private static Map<String, String> channelReverseMapping;
+
   @Autowired
   private CustomProperties customProperties;
 
@@ -33,6 +35,15 @@ public class CustomPropertiesProxy
       machineNameReverseMapping = encodeAndReverseMap(customProperties.getMachineNameMapping());
     }
     return machineNameReverseMapping;
+  }
+
+  public Map<String, String> getChannelMapping()
+  {
+    if (channelReverseMapping == null)
+    {
+      channelReverseMapping = encodeAndReverseMap(customProperties.getChannelMapping());
+    }
+    return channelReverseMapping;
   }
 
   private Map<String, String> encodeAndReverseMap(Map<String, String> originalPropertiesMap)

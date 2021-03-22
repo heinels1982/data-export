@@ -3,24 +3,23 @@ package com.vibcare.dataexport.db;
 public class VibDataEntity
 {
 
-  private String vbProfileName;
-  private String machineName;
-  private String pointName;
-  private String gmtEvent;
-  private Double maxSecsOrRevs;
-  private byte[] weaveFormData;
-  private Double assocRpmInHz;
-  private Integer samplingCounts;
-  private Integer locId;
-  private Float rmsOverall;
-  private Float truePkpk;
-  private Float crestFactor;
-  private Integer channelId;
-
+  private final String vbProfileName;
+  private final String machineName;
+  private final String pointName;
+  private final String gmtEvent;
+  private final Double maxSecsOrRevs;
+  private final byte[] weaveFormData;
+  private final Double assocRpmInHz;
+  private final Integer samplingCounts;
+  private final Float rmsOverall;
+  private final Float truePkpk;
+  private final Float crestFactor;
+  private final Integer channelId;
+  private final String axisName;
 
   public VibDataEntity(String vbProfileName, String machineName, String pointName, String gmtEvent, Double maxSecsOrRevs,
-    byte[] weaveFormData, Double assocRpmInHz, Integer samplingCounts, Integer locId, Float rmsOverall, Float truePkpk,
-    Float crestFactor, Integer channelId)
+    byte[] weaveFormData, Double assocRpmInHz, Integer samplingCounts, Float rmsOverall, Float truePkpk,
+    Float crestFactor, Integer channelId, String axisName)
   {
     this.vbProfileName = vbProfileName;
     this.machineName = machineName;
@@ -30,16 +29,26 @@ public class VibDataEntity
     this.weaveFormData = weaveFormData;
     this.assocRpmInHz = assocRpmInHz;
     this.samplingCounts = samplingCounts;
-    this.locId = locId;
     this.rmsOverall = rmsOverall;
     this.truePkpk = truePkpk;
     this.crestFactor = crestFactor;
     this.channelId = channelId;
+    this.axisName = axisName;
   }
 
   public String getMachineName()
   {
     return machineName;
+  }
+
+  public String getPointName()
+  {
+    return pointName;
+  }
+
+  public String getAxisName()
+  {
+    return axisName;
   }
 
   public String getVbProfileName()
@@ -60,11 +69,6 @@ public class VibDataEntity
   public byte[] getWeaveFormData()
   {
     return weaveFormData;
-  }
-
-  public Integer getLocId()
-  {
-    return locId;
   }
 
   public Double getMaxSecsOrRevs()

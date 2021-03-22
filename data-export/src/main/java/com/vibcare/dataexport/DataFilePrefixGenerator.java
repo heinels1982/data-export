@@ -3,13 +3,17 @@ package com.vibcare.dataexport;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.vibcare.dataexport.db.util.EncodingHelper;
 
 @Component
 public class DataFilePrefixGenerator
 {
-
+  private static final Logger LOGGER = LoggerFactory.getLogger(DataFilePrefixGenerator.class);
   private static final String MACHINE_CODE_PREFIX = "FJ";
   private static final String SITE_CODE_PREFIX = "ZD";
   private static final String CHANNEL_CODE_PREFIX = "CH";
@@ -55,8 +59,21 @@ public class DataFilePrefixGenerator
     return siteCode;
   }
 
-  public String getChannelCode(Integer channelCode)
+  public String getChannelCode(String componentName, String axisName)
   {
-    return CHANNEL_CODE_PREFIX + channelCode;
+    String key = componentName + "_" + axisName;
+
+
+    String channelCode = "chzzz";
+    if (properties.getChannelMapping().get(key) != null)
+    {
+      channelCode = properties.getChannelMapping().get(key);
+    }
+    else
+    {
+      LOGGER.warn(EncodingHelper.encoding(componentName) + "_" + EncodingHelper.encoding(axisName) + " is not mapped.");
+
+    }
+    return channelCode;
   }
 }
